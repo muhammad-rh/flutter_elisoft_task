@@ -115,7 +115,7 @@ class ArticleView extends StatelessWidget {
                         return Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(6),
-                            color: Colors.black12,
+                            color: greenQuaternaryColor,
                           ),
                           padding: const EdgeInsets.all(8.0),
                           height: 190,

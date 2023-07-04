@@ -1,16 +1,24 @@
-# flutter_elisoft_task
+# Flutter-Elisoft-Task
 
-A new Flutter project.
+Flutter project intended for Elisoft Technology's flutter test
 
-## Getting Started
+## Package used in
 
-This project is a starting point for a Flutter application.
+- flutter_bloc:_ ^8.1.3
+- dio: ^5.2.1+1
+- shimmer: ^3.0.0
+- intl: ^0.18.1_
 
-A few resources to get you started if this is your first Flutter project:
+## Some app screenshots
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+### LoginScreen
+![gambar](./screenshots/Screenshot1.png)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### LoginScreen2
+![gambar](./screenshots/Screenshot2.png)
+
+### ArticleScreen
+![gambar](./screenshots/Screenshot3.png)
+
+### ArticleScreen2
+![gambar](./screenshots/Screenshot4.png)
