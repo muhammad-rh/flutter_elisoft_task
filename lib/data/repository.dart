@@ -1,3 +1,4 @@
+import 'package:flutter_elisoft_task/data/models/article_model.dart';
 import 'package:flutter_elisoft_task/data/models/user_model.dart';
 import 'package:flutter_elisoft_task/data/network_service.dart';
 
@@ -10,7 +11,6 @@ class Repository {
     final body = {
       'email': username,
       'password': password,
-      // 'token': '',
     };
 
     final response = await networkService.postLogin(body);
@@ -19,5 +19,14 @@ class Repository {
         ResponseResultUserModel.fromJson(response);
 
     return responseResult.user!;
+  }
+
+  Future<List<ArticlesModel>> getArticle() async {
+    final response = await networkService.getArticle();
+
+    ResponseResultArticleModel responseResult =
+        ResponseResultArticleModel.fromJson(response);
+
+    return responseResult.articles!;
   }
 }

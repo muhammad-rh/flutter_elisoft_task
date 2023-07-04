@@ -34,14 +34,14 @@ class UserModel {
 }
 
 class Created {
-  String? date;
+  DateTime? date;
   int? timezoneType;
   String? timezone;
 
   Created({this.date, this.timezoneType, this.timezone});
 
   Created.fromJson(Map<String, dynamic> json) {
-    date = json['date'];
+    date = DateTime.parse(json['date']);
     timezoneType = json['timezone_type'];
     timezone = json['timezone'];
   }
