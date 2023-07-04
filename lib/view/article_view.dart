@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_elisoft_task/components/skeleton.dart';
 import 'package:flutter_elisoft_task/constant/color.dart';
+import 'package:flutter_elisoft_task/cubit/article_cubit.dart';
+import 'package:flutter_elisoft_task/cubit/auth_cubit.dart';
 import 'package:shimmer/shimmer.dart';
 
 class ArticleView extends StatelessWidget {
@@ -8,6 +11,8 @@ class ArticleView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final authCubit = BlocProvider.of<AuthCubit>(context);
+    BlocProvider.of<ArticleCubit>(context).getArticle();
     return Scaffold(
       body: SafeArea(
         // child: Skeleton(),
@@ -15,18 +20,33 @@ class ArticleView extends StatelessWidget {
           padding: const EdgeInsets.all(16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
+            // BlocBuilder<AuthCubit, AuthState>(
+            //   builder: (context, state) {
+            //     if (state is AuthLoading) {
+            //       return const CircularProgressIndicator();
+            //     }
+            //     return const Text(
+            //       'LOGIN',
+            //       textAlign: TextAlign.center,
+            //       style: TextStyle(
+            //         fontSize: 18,
+            //         color: Colors.white,
+            //         fontWeight: FontWeight.bold,
+            //       ),
+            //     );
+            //   },
+            // )
             children: [
               SizedBox(
-                width: 170,
                 height: 30,
                 child: RichText(
-                  text: const TextSpan(
+                  text: TextSpan(
                     text: 'Welcome,',
-                    style: TextStyle(color: Colors.black, fontSize: 20),
+                    style: const TextStyle(color: Colors.black, fontSize: 20),
                     children: <TextSpan>[
                       TextSpan(
-                        text: ' User',
-                        style: TextStyle(
+                        text: ' ${authCubit.userModel!.name}',
+                        style: const TextStyle(
                           fontWeight: FontWeight.bold,
                         ),
                       ),

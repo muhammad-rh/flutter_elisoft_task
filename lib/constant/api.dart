@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_elisoft_task/constant/strings.dart';
 
 class API {
   final Dio dio;
@@ -6,6 +7,9 @@ class API {
     Dio(
       BaseOptions(
         baseUrl: 'https://demo.treblle.com/api/v1',
+        headers: {
+          'Authorization': 'Bearer $TOKEN',
+        },
       ),
     ),
   );
