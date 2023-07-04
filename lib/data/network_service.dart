@@ -10,28 +10,26 @@ class NetworkService {
         '/auth/login',
         data: body,
       );
-      print('responseData : ${response.data}');
 
       if (response.statusCode == 200) {
         return response.data;
       }
     } on DioException catch (e) {
-      print('error ${e.response}');
-      return null;
+      return e;
     }
   }
 
   getArticle() async {
     try {
-      final response = await _api.dio.get('/articles');
-      print('responseData : ${response.data}');
+      final response = await _api.dio.get(
+        '/articles',
+      );
 
       if (response.statusCode == 200) {
         return response.data;
       }
     } on DioException catch (e) {
-      print('error ${e.response}');
-      return null;
+      return e;
     }
   }
 }

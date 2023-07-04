@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_elisoft_task/components/custom_password_field.dart';
 import 'package:flutter_elisoft_task/components/custom_text_field.dart';
 import 'package:flutter_elisoft_task/constant/color.dart';
 import 'package:flutter_elisoft_task/cubit/auth_cubit.dart';
@@ -58,56 +59,19 @@ class _LoginViewState extends State<LoginView> {
               ),
               const SizedBox(height: 14),
               // password textfield
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(6),
-                  color: greenPrimaryColor,
-                ),
-                child: TextFormField(
-                  autofocus: false,
-                  controller: passwordController,
-                  keyboardType: TextInputType.text,
-                  obscureText: !passwordVisible,
-                  validator: (value) {
-                    RegExp regex = RegExp(r'^.{6,}$');
-                    if (value!.isEmpty) {
-                      return ("Password is required for login");
-                    }
-                    if (!regex.hasMatch(value)) {
-                      return ("Enter Valid Password(Min. 6 Character)");
-                    }
-                    return null;
-                  },
-                  onSaved: (value) {
-                    passwordController.text = value!;
-                  },
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w400,
-                  ),
-                  decoration: InputDecoration(
-                    contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
-                    labelText: 'Password',
-                    suffixIcon: IconButton(
-                      onPressed: () {
-                        setState(() {
-                          passwordVisible = !passwordVisible;
-                        });
-                      },
-                      icon: Icon(
-                        !passwordVisible
-                            ? Icons.visibility
-                            : Icons.visibility_off,
-                        color: greenTertiaryColor,
-                      ),
-                    ),
-                    floatingLabelBehavior: FloatingLabelBehavior.always,
-                    labelStyle: TextStyle(
-                      color: greenSecondaryColor,
-                      fontWeight: FontWeight.w600,
-                    ),
-                    border: InputBorder.none,
-                  ),
-                ),
+              CustomPasswordField(
+                passwordController: passwordController,
+                passwordVisible: passwordVisible,
+                validator: (value) {
+                  RegExp regex = RegExp(r'^.{6,}$');
+                  if (value!.isEmpty) {
+                    return ("Password is required for login");
+                  }
+                  if (!regex.hasMatch(value)) {
+                    return ("Enter Valid Password(Min. 6 Character)");
+                  }
+                  return null;
+                },
               ),
               const SizedBox(height: 40),
               // login button
@@ -148,10 +112,6 @@ class _LoginViewState extends State<LoginView> {
                             '/article-view',
                           );
                         });
-                      }
-
-                      if (state is AuthError) {
-                        print('AuthError${state.error}');
                       }
 
                       return const Text(

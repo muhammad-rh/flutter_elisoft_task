@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_elisoft_task/components/article_horiz_skeleton.dart';
 import 'package:flutter_elisoft_task/components/article_vert_skeleton.dart';
+import 'package:flutter_elisoft_task/components/welcome_user_skeleton.dart';
 import 'package:flutter_elisoft_task/constant/color.dart';
 import 'package:flutter_elisoft_task/cubit/article_cubit.dart';
 import 'package:flutter_elisoft_task/cubit/auth_cubit.dart';
@@ -16,7 +17,6 @@ class ArticleView extends StatelessWidget {
     BlocProvider.of<ArticleCubit>(context).getArticle();
     return Scaffold(
       body: SafeArea(
-        // child: Skeleton(),
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
@@ -24,19 +24,28 @@ class ArticleView extends StatelessWidget {
             children: [
               SizedBox(
                 height: 30,
-                child: RichText(
-                  text: TextSpan(
-                    text: 'Welcome,',
-                    style: const TextStyle(color: Colors.black, fontSize: 20),
-                    children: <TextSpan>[
-                      TextSpan(
-                        text: ' ${authCubit.userModel!.name}',
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
+                child: BlocBuilder<ArticleCubit, ArticleState>(
+                  builder: (context, state) {
+                    if (state is! ArticleFilled) {
+                      return const WelcomeUserSkeleton();
+                    }
+
+                    return RichText(
+                      text: TextSpan(
+                        text: 'Welcome,',
+                        style:
+                            const TextStyle(color: Colors.black, fontSize: 20),
+                        children: <TextSpan>[
+                          TextSpan(
+                            text: ' ${authCubit.userModel!.name}',
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
+                    );
+                  },
                 ),
               ),
               const SizedBox(height: 10),
@@ -51,8 +60,9 @@ class ArticleView extends StatelessWidget {
                   return Expanded(
                     child: ListView.separated(
                       scrollDirection: Axis.horizontal,
-                      itemCount: articles.length,
+                      itemCount: (articles.length / 2).round(),
                       itemBuilder: (context, index) {
+                        index = index + 10;
                         return Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(6),
@@ -100,7 +110,7 @@ class ArticleView extends StatelessWidget {
                   return Expanded(
                     flex: 2,
                     child: ListView.separated(
-                      itemCount: articles.length,
+                      itemCount: (articles.length / 2).round(),
                       itemBuilder: (context, index) {
                         return Container(
                           decoration: BoxDecoration(
@@ -148,8 +158,7 @@ class ArticleView extends StatelessWidget {
                               SizedBox(
                                 height: 20,
                                 child: Text(
-                                  // '${articles[index].created!.date}',
-                                  DateFormat('dd MMMM yyyy, h:m:s')
+                                  DateFormat('dd MMMM yyyy, hh:mm:ss')
                                       .format(articles[index].created!.date!)
                                       .toString(),
                                   style: const TextStyle(
